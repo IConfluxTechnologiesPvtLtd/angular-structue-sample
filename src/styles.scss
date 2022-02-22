@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+/* Show it is fixed to the top */
+html {
+    width: 100%;
+}
+body {
+    // min-height: 75rem;
+    width: 100%;
+    padding-top: 4.5rem;
+}  
+.clickable{
+    cursor: pointer;
+}
+.toaster-container-custom{
+    z-index: 1040;
+}

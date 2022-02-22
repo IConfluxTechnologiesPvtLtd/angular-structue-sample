@@ -1,0 +1,89 @@
+<div class="bg-light p-5 rounded">
+    <div class="row">
+      <div class="col-12 text-end">
+<!-- 
+        data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="addPress()" -->
+        <a type="button" class="btn btn-primary" 
+        routerLink="/user/add">
+          Add
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Description</th>
+                <th scope="col" class="clickable" (click)="headerPress('status')">Status
+                  <i *ngIf="sort_by == 'status' && sort_value == 'desc'" class="bi bi-arrow-down"></i>
+                  <i *ngIf="sort_by == 'status' && sort_value == 'asc'" class="bi bi-arrow-up"></i>
+                </th>
+                <th scope="col">Replay</th>
+                <th scope="col" class="clickable" (click)="headerPress('created_at')">Raised On 
+                  <i *ngIf="sort_by == 'created_at' && sort_value == 'desc'" class="bi bi-arrow-down"></i>
+                  <i *ngIf="sort_by == 'created_at' && sort_value == 'asc'" class="bi bi-arrow-up"></i></th>
+                <th scope="col" class="clickable" (click)="headerPress('updated_at')">Replied On
+                  <i *ngIf="sort_by == 'updated_at' && sort_value == 'desc'" class="bi bi-arrow-down"></i>
+                  <i *ngIf="sort_by == 'updated_at' && sort_value == 'asc'" class="bi bi-arrow-up"></i>
+                </th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of page_list;let i=index;">
+                <th scope="row">{{((current_page-1)*per_page_item)+(i+1)}}</th>
+                <td>{{item.complaint}}</td>
+                <td>
+                  <button type="button" class="btn btn-sm"
+                    [ngClass]="{'btn-outline-warning': item.status == 'pending',
+                    'btn-outline-danger': item.status == 'reject',
+                    'btn-outline-success': item.status == 'resolved'}" disabled>
+                    {{item.status | uppercase}}
+                  </button>
+                </td>
+                <td>{{item.notes}}</td>
+                <td>{{item.created_at}}</td>
+                <td>{{item.updated_at}}</td>
+                <td>
+                  <!-- data-bs-toggle="modal" data-bs-target="#exampleModal" 
+                  (click)="editPress(item)" -->
+                  <a type="button" class="btn btn-outline-info" 
+                  [routerLink]="'/user/edit/'+item.id">
+                    <i class="bi bi-pencil-square"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="row" >
+      <div class="col-12 d-flex align-items-center justify-content-between">
+        <p class="ml-2">
+          Total Records : {{total_records}}
+        </p>
+          <ul class="pagination">
+             <li class="page-item" [ngClass]="{'disabled': !is_first_enabled,'clickable':is_first_enabled}"><a class="page-link " (click)="firstClick()" >First</a></li>
+             <li class="page-item" [ngClass]="{'disabled': !is_prev_enabled,'clickable':is_first_enabled}"><a class="page-link" (click)="previousClick()">Previous</a></li>
+             <li class="page-item clickable" *ngFor="let item of number_of_pages_arr;"
+             [ngClass]="{'active': item.value == current_page}"
+             >
+             <a class="page-link" *ngIf="current_page == item.value || 
+             (current_page-1) == item.value || 
+             (current_page+1) == item.value" 
+             (click)="goToPage(item.value);">{{item.name}}</a>
+            </li>
+             
+             <li class="page-item" [ngClass]="{'disabled': !is_next_enabled,'clickable':is_first_enabled}"><a class="page-link" (click)="nextClick()">Next</a></li>
+             <li class="page-item" [ngClass]="{'disabled': !is_last_enabled,'clickable':is_first_enabled}"><a class="page-link" (click)="lastClick()">Last</a></li>
+         </ul>
+      </div>
+    </div>
+  </div>
+  <!-- Add Modal -->
+  
+  

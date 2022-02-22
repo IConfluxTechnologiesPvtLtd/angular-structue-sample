@@ -1,0 +1,61 @@
+<form *ngIf="edit_complaint_form" [formGroup]="edit_complaint_form">
+  <div class="row mt-3 mb-2">
+    <div class="col-6">
+      Raised On : 13 Jan,2022
+    </div>
+    <div class="col-6">
+      Replied On : 13 Jan,2022
+    </div>
+  </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group first-last">
+          <label>Complaint <span class="text-danger">*</span></label>
+          <textarea type="text" class="form-control" formControlName="complaint"
+          [maxlength]="max_length"
+           required placeholder="Complaint"
+           ></textarea>
+          <!-- <div class="row d-flex align-items-center " *ngIf="form_type == 'add'">
+            <span style="color: #00b6f0;" class="font-weight-bold col-2 text-right"> {{complaint_length}} / {{max_length}} </span>
+          </div> -->
+          <p *ngIf="(is_submit || (complaint!.touched && complaint!.invalid))"
+            class="text-danger">
+            <span *ngIf="complaint?.errors?.required">
+              This field required
+            </span>
+            <span *ngIf="complaint?.errors?.required">
+              Max length is {{max_length}}
+            </span>
+          </p>
+        </div> 
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-12">
+        <div class="form-group first-last">
+          <label>Notes </label>
+          <textarea type="text" class="form-control" formControlName="notes"
+          [maxlength]="max_length" placeholder="Notes"></textarea>
+        </div> 
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-12">
+        <div class="form-group first-last">
+          <label>Status <span class="text-danger">*</span></label>
+          <select class="form-control form-select" formControlName="status">
+            <option *ngFor="let item of status_arr" [value]="item.value">
+              {{item.label}}
+            </option>
+          </select>
+        </div> 
+      </div>
+    </div>
+  </form>
+  <div class="row mt-3">
+    <div class="col-12 text-end">
+        <button type="button" class="btn btn-primary" (click)="onEditComplaint()">
+            Submit
+        </button>
+    </div>
+</div>
